@@ -28,7 +28,7 @@ ui <- dashboardPage(
   dashboardSidebar(
     tags$style(".left-side, .main-sidebar {padding-top: 80px}"),
     sidebarMenu(
-    # menuItem("Dataset Dashboard", tabName = "dashboard", icon = icon("home")),  
+    menuItem("Dataset Dashboard", tabName = "dashboard", icon = icon("home")),
     menuItem("Get Metadata Template", tabName = "template", icon = icon("table")),
     menuItem("Upload Annotated Dataset", tabName = "upload", icon = icon("upload"))
     )
@@ -39,18 +39,18 @@ ui <- dashboardPage(
         includeScript("www/readCookie.js")
       )),
     tabItems(
-      # First tab content
-      # tabItem(tabName = "dashboard",
-      #         h2("Welcome to your dataset dashboard!"),
-      #         fluidRow(
-      #           box(
-      #             status = "primary",
-      #             solidHeader = TRUE,
-      #             title = "Datasets and Annotations",
-      #             width = 12 #, 
-      #             # DT::DTOutput("projData"),
-      #           )
-      #         )),
+      First tab content
+      tabItem(tabName = "dashboard",
+              h2("Welcome to your dataset dashboard!"),
+              fluidRow(
+                box(
+                  status = "primary",
+                  solidHeader = TRUE,
+                  title = "Datasets and Annotations",
+                  width = 12 #,
+                  # DT::DTOutput("projData"),
+                )
+              )),
       # Second tab item
       tabItem(tabName = "template",
               h2("Choose your Assay and Dataset Template"),
