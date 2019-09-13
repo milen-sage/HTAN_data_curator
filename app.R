@@ -75,6 +75,13 @@ ui <- dashboardPage(
                     label = "Template:",
                     choices = list("Minimal Metadata") 
                   ) 
+                ),
+                box(
+                  status = "primary",
+                  solidHeader = TRUE,
+                  title = "Datasets at a Glance",
+                  width = 12 #,
+                  # DT::DTOutput("projData"),
                 )
               )
               ),
