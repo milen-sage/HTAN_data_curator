@@ -36,11 +36,7 @@ ui <- dashboardPage(
   dashboardSidebar( width = 250, 
     tags$style(".left-side, .main-sidebar {padding-top: 80px; font-weight: bold; font-size: 1.1em } "),
     sidebarMenu(
-<<<<<<< HEAD
     menuItem("Select your Dataset", tabName = "data", icon = icon("mouse-pointer")),
-=======
-    menuItem("Dataset Dashboard", tabName = "dashboard", icon = icon("home")),
->>>>>>> c8d923e096deca40336adf0523f1168a0002f2e5
     menuItem("Get Metadata Template", tabName = "template", icon = icon("table")),
     menuItem("Submit & Validate Metadata", tabName = "upload", icon = icon("upload"))
     )
@@ -56,27 +52,9 @@ ui <- dashboardPage(
       )),
     uiOutput("title"),
     tabItems(
-<<<<<<< HEAD
       # First tab content
       tabItem(tabName = "data",
               h2("Set Dataset and Template for Curation"),
-=======
-      First tab content
-      tabItem(tabName = "dashboard",
-              h2("Welcome to your dataset dashboard!"),
-              fluidRow(
-                box(
-                  status = "primary",
-                  solidHeader = TRUE,
-                  title = "Datasets and Annotations",
-                  width = 12 #,
-                  # DT::DTOutput("projData"),
-                )
-              )),
-      # Second tab item
-      tabItem(tabName = "template",
-              h2("Choose your Assay and Dataset Template"),
->>>>>>> c8d923e096deca40336adf0523f1168a0002f2e5
               fluidRow(
                 box(
                   status = "primary",
