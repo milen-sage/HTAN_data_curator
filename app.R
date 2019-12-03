@@ -228,14 +228,14 @@ server <- function(input, output, session) {
     showNotification(id="processing", "Please wait while we log you in...", duration = NULL, type = "warning" )
     ### logs in 
     syn_login(sessionToken=input$cookie, rememberMe = FALSE)
-
+    # syn_login()
     ### welcome message
     output$title <- renderUI({
       titlePanel(sprintf("Welcome, %s", syn_getUserProfile()$userName))
     })
 
     ### updating global vars with values for projects
-    synStore_obj <<- syn_store("syn20446927", token = input$cookie)
+    synStore_obj <<- syn_store("syn20446927", token = "f5223aab-6bea-4792-98a3-794518a5c2f0")#input$cookie)
     # get_projects_list(synStore_obj)
     projects_list <<- get_projects_list(synStore_obj)
 
@@ -245,10 +245,8 @@ server <- function(input, output, session) {
     
     ### updates project dropdown
     updateSelectizeInput(session, 'var', choices = names(projects_namedList))
-    removeNotification(id="processing",)
-    
+    removeNotification(id="processing")
   })
-
 
   ### rename the input template type to scRNA-seq
   in_template_type <- "ScRNA-seq"
@@ -272,7 +270,8 @@ server <- function(input, output, session) {
       print(i)
       print(all_folders_list[i])
       folders_manifest_df[i,1] <- all_folders_list[i]
-      path <- get_storage_manifest_path(input$cookie , all_folders_list[i])
+      # path <- get_storage_manifest_path(input$cookie , all_folders_list[i]) "f5223aab-6bea-4792-98a3-794518a5c2f0")#
+  path <- get_storage_manifest_path("f5223aab-6bea-4792-98a3-794518a5c2f0" , all_folders_list[i]) 
       if ( is.null(path) ) { ## if no manifest is uploaded 
         folders_manifest_df[i,2] <- NA  
       } else {
@@ -296,7 +295,7 @@ server <- function(input, output, session) {
       manifest_df <- read.csv(manifest_path)
       
       ### subset cols by component type ASSAY
-      assay_cols <- manifest_df[, c("Cancer.Type", "Library.Construction.Method")]
+      assay_cols <- manifest_df[, c("Library.Layout", "Library.Construction.Method")]
       
       # how to count empty cells vs all cells
       dim_val <- dim(assay_cols)
@@ -310,14 +309,14 @@ server <- function(input, output, session) {
       manifest_cells[i,6] <- per_filled
       
       
-      HTAN_cols <- manifest_df[, c("HTAN.Participant.ID", "HTAN.Sample.ID")]
+      QC_cols <- manifest_df[, c("Median.Number.Genes.per.Cell", "Median.UMIs.per.Cell.Number", "Total.Reads.Number")]
       # how to count empty cells vs all cells
-      dim_val <- dim(HTAN_cols)
+      dim_val <- dim(QC_cols)
       total_cells <- dim_val[1] * dim_val[2]
-      empty_cells <- table(is.na(HTAN_cols))
+      empty_cells <- table(is.na(QC_cols))
       per_filled <- (empty_cells[1] / total_cells )* 100
       
-      manifest_cells[i,7] <- "HTAN_IDs"
+      manifest_cells[i,7] <- "Assay_QC"
       manifest_cells[i,8] <- total_cells
       manifest_cells[i,9] <- empty_cells[1] ## filled, empty= F
       manifest_cells[i,10] <- per_filled
@@ -328,7 +327,7 @@ server <- function(input, output, session) {
       manifest_cells[i,5] <- 0
       manifest_cells[i,6] <- 0
 
-      manifest_cells[i,7] <- "HTAN_IDs"
+      manifest_cells[i,7] <- "Assay_QC"
       manifest_cells[i,8] <- 0
       manifest_cells[i,9] <- 0 ## filled, empty= F
       manifest_cells[i,10] <- 0
