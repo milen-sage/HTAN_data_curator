@@ -235,7 +235,7 @@ server <- function(input, output, session) {
     })
 
     ### updating global vars with values for projects
-    synStore_obj <<- syn_store("syn20446927", token = "f5223aab-6bea-4792-98a3-794518a5c2f0")#input$cookie)
+    synStore_obj <<- syn_store("syn20446927", token = input$cookie)
     # get_projects_list(synStore_obj)
     projects_list <<- get_projects_list(synStore_obj)
 
@@ -270,8 +270,7 @@ server <- function(input, output, session) {
       print(i)
       print(all_folders_list[i])
       folders_manifest_df[i,1] <- all_folders_list[i]
-      # path <- get_storage_manifest_path(input$cookie , all_folders_list[i]) "f5223aab-6bea-4792-98a3-794518a5c2f0")#
-  path <- get_storage_manifest_path("f5223aab-6bea-4792-98a3-794518a5c2f0" , all_folders_list[i]) 
+      path <- get_storage_manifest_path(input$cookie , all_folders_list[i]) 
       if ( is.null(path) ) { ## if no manifest is uploaded 
         folders_manifest_df[i,2] <- NA  
       } else {
